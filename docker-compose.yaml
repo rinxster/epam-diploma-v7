@@ -1,0 +1,41 @@
+version: '3'
+networks:
+  bridge:
+    driver: bridge
+services:
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    restart: always
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "weather", "-U", "postgres" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    networks:
+      - bridge
+  web:
+    build: .
+    container_name: flask-webapp
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      - .:/app
+    ports:
+      - "80:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+    networks:
+      - bridge

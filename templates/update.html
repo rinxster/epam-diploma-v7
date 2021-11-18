@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Forecast App</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col">
+
+            <div class="leftside">
+                <form class="form-inline" method="post" action="{{ url_for('results') }}">
+                    <div>
+                        
+                        <h style="font-size: x-large;">Weather Forecast Application</h>
+                        <p>Just pick up a date in the below form,<br> and you will see the forecast for this day.<br></p>
+                        <span class="input-group-addon">Please select a date:</span>
+                        <div class="select">
+    
+                            <select name="date_select" class="select">
+                            {% for date in list_of_date %}
+                                <option class="select"  value="{{ date }}">{{date}}</option>
+                            {% endfor %}<br/>
+                            </select>
+
+                            <div class="select_arrow">
+                            </div>
+
+                            <button class="myButton" type="submit">Forecast</button>
+
+                        </div>
+    
+                    </div>
+                      
+                </form>
+
+                <div class="update">
+                    <form class="form-inline" method="post" action="{{ url_for('update') }}">
+                        <button class="myButton" type="submit">Update</button>
+                        <!-- <input type="submit" name="update" value="Update"/> -->
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col">
+
+            <div class="rightside" id="table-wrapper">
+                <div id="table-scroll">
+                    <table border="1" style="width:100px; color:white ; border: 2cm;">
+                        <caption align="top">Weather results for {{select}} in Moscow</caption>
+                            <tr style="border: 4px; border-radius: 2cm;">
+                                <th id="id">ID</th>
+                                <th id="weather">WEATHER</th>
+                                <th id="wind_direction">WIND_DIRECTION</th>
+                                <th id="created">CREATED</th>
+                                <th id="applicable">APPLICABLE</th>
+                                <th id="temp_min">MIN</th>
+                                <th id="temp_max">MAX</th>
+                                <th id="temp">TEMP</th>
+                            </tr>
+                            {% for i in date_weather %}
+                            <tr>
+                                <td>{{ i[0] }}</td>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }}</td>
+                                <td>{{ i[3] }}</td>
+                                <td>{{ i[4] }}</td>
+                                <td>{{ i[5] }}</td>
+                                <td>{{ i[6] }}</td>
+                                <td>{{ i[7] }}</td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div>
+        <footer>
+          <p>2021 EPAM Systems<br>
+          <a style="color:white;" href="mailto:sergei_kuzmin1@epam.com">sergei_kuzmin1@epam.com</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
