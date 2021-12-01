@@ -5,20 +5,20 @@
     <title>Metaweather Msk List</title>
 </head>
 
-      <table>
+      <table border="1" style="width:60px; color:black ; border: 2cm;" style="text-align:center">
         <caption align="top">Weather results in Moscow</caption>
-            <tr>
+            <tr style="text-align:center">
                 <th id="id">ID</th>
                 <th id="weather">WEATHER</th>
-                <th id="wind_direction">WIND_DIRECTION</th>
+                <th id="wind_direction">WIND_DIRECTION_COMPASS</th>
                 <th id="created">CREATED</th>
-                <th id="applicable">APPLICABLE</th>
-                <th id="temp_min">MIN</th>
-                <th id="temp_max">MAX</th>
-                <th id="temp">TEMP</th>
+                <th id="applicable">APPLICABLE_DATE</th>
+                <th id="temp_min">MIN_TEMP</th>
+                <th id="temp_max">MAX_TEMP</th>
+                <th id="temp">THE_TEMP</th>
             </tr>
             {% for i in date_weather %}
-            <tr>
+            <tr style="text-align:center">
                 <td>{{ i[0] }}</td>
                 <td>{{ i[1] }}</td>
                 <td>{{ i[2] }}</td>

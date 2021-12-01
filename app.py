@@ -60,6 +60,19 @@ def insert_table():
     cursor.close()
     conn.close()
 
+
+def clean_table():
+    try:
+        conn = connect(db_params)
+        cursor = conn.cursor()
+        cursor.execute(""" DELETE  FROM public.forecast  """)
+        conn.commit()
+    except (Exception, psycopg2.Error) as error:
+        print("Failed cleaning data  {}".format(error))
+    cursor.close()
+    conn.close()
+
+
 def postgresql_query(conn, select_query):
     cursor = conn.cursor()
     try:
@@ -101,21 +114,34 @@ def results():
     return render_template('results.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
 
 
-@app.route('/index2', methods=['POST','GET'])
-def results():
-#    select = request.form.get('date_select')
-#    conn = connect(db_params)
-#    sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
-#    date_weather = postgresql_query(conn, sql_query)
-#    conn.close()
-#    return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
-return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
+@app.route('/showalldata', methods=['POST','GET'])
+def showalldata():
+    conn = connect(db_params)
+    sql_query = """ SELECT * FROM forecast """
+    date_weather = postgresql_query(conn, sql_query)
+    conn.close()
+    return render_template('showalldata.html', date_weather=date_weather)
+
+@app.route('/showbydate', methods=['POST','GET'])
+def showbydate():
+    select = request.form.get('date_select')
+    conn = connect(db_params)
+    sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
+    date_weather = postgresql_query(conn, sql_query)
+    conn.close()
+    return render_template('results.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
 
 
 @app.route('/update', methods=['POST','GET'])
 def update():
     insert_table()
     return render_template('update.html', list_of_date=list_of_date)
+
+@app.route('/cleandata', methods=['POST','GET'])
+def cleandata():
+    clean_table()
+    return render_template('cleandata.html', list_of_date=list_of_date)
+
 
 @app.route('/stress')
 def stress():
