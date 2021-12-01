@@ -9,16 +9,19 @@ from joblib import Parallel, delayed
 from flask import Flask, render_template, request, jsonify
 
 city_id = requests.get("https://www.metaweather.com/api/location/search/?query={}".format('Moscow')).json()[0]['woeid']
+
 num_days = calendar.monthrange(datetime.now().year, datetime.now().month)[1]
+
 days = [('{:04}/{:02}/{:02}/'.format(datetime.now().year, datetime.now().month, day)) for day in range(1, num_days + 1)]
+
 column_names = ["id", "weather_state_name", "wind_direction_compass", "created",
                     "applicable_date", "min_temp", "max_temp", "the_temp"]
 
 db_params = {
-    "host": os.getenv('DB_HOST'),
-    "database": os.getenv('DB_NAME'),
-    "user": os.getenv('DB_USER'),
-    "password": os.getenv('DB_PASSWORD'),
+    "host": '127.0.0.1', #os.getenv('DB_HOST'),
+    "database": 'weather-database', #os.getenv('DB_NAME'),
+    "user": 'postgres', #os.getenv('DB_USER'),
+    "password": 'postgres',#os.getenv('DB_PASSWORD'),
     "port": "5432"
 }
 
@@ -96,6 +99,18 @@ def results():
     date_weather = postgresql_query(conn, sql_query)
     conn.close()
     return render_template('results.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
+
+
+@app.route('/index2', methods=['POST','GET'])
+def results():
+    select = request.form.get('date_select')
+    conn = connect(db_params)
+    sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
+    date_weather = postgresql_query(conn, sql_query)
+    conn.close()
+    return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
+
+
 
 @app.route('/update', methods=['POST','GET'])
 def update():
