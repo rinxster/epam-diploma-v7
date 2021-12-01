@@ -103,13 +103,13 @@ def results():
 
 @app.route('/index2', methods=['POST','GET'])
 def results():
-    select = request.form.get('date_select')
-    conn = connect(db_params)
-    sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
-    date_weather = postgresql_query(conn, sql_query)
-    conn.close()
-    return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
-
+#    select = request.form.get('date_select')
+#    conn = connect(db_params)
+#    sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
+#    date_weather = postgresql_query(conn, sql_query)
+#    conn.close()
+#    return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
+return render_template('index2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
 
 
 @app.route('/update', methods=['POST','GET'])
