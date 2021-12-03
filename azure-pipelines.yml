@@ -1,4 +1,3 @@
-- task: SonarCloudAnalyze@1
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Azure Container Registry'
