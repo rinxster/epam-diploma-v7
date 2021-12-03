@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Metaweather Msk List</title>
+</head>
+<body>
+
+    <table border="1" style="width:60px; color:black ; border: 2cm;">
+        <caption align="top">Weather results for {{select}} in Moscow</caption>
+            <tr style="border: 4px; border-radius: 2cm;">
+                <th id="id">ID</th>
+                <th id="weather">WEATHER</th>
+                <th id="wind_direction">WIND_DIRECTION</th>
+                <th id="created">CREATED</th>
+                <th id="applicable">APPLICABLE</th>
+                <th id="temp_min">MIN</th>
+                <th id="temp_max">MAX</th>
+                <th id="temp">TEMP</th>
+            </tr>
+            {% for i in date_weather %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+                <td>{{ i[5] }}</td>
+                <td>{{ i[6] }}</td>
+                <td>{{ i[7] }}</td>
+            </tr>
+            {% endfor %}
+    </table>
+</body>
+</html>
+

@@ -104,6 +104,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html',list_of_date=list_of_date)
 
+@app.route('/index2')
+def index2():
+    return render_template('index2.html')
+
 @app.route('/results', methods=['POST','GET'])
 def results():
     select = request.form.get('date_select')
@@ -117,25 +121,30 @@ def results():
 @app.route('/showalldata', methods=['POST','GET'])
 def showalldata():
     conn = connect(db_params)
-    sql_query = """ SELECT * FROM forecast """
+    sql_query = """ SELECT * FROM forecast ORDER BY created """
     date_weather = postgresql_query(conn, sql_query)
     conn.close()
     return render_template('showalldata.html', date_weather=date_weather)
 
 @app.route('/showbydate', methods=['POST','GET'])
 def showbydate():
-    select = request.form.get('date_select')
+    select = request.form.get('enterdate')
     conn = connect(db_params)
+    print(select)
     sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
     date_weather = postgresql_query(conn, sql_query)
     conn.close()
-    return render_template('results.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
-
+    return render_template('results2.html', select=select, list_of_date=list_of_date, date_weather=date_weather)
 
 @app.route('/update', methods=['POST','GET'])
 def update():
     insert_table()
     return render_template('update.html', list_of_date=list_of_date)
+
+@app.route('/update2', methods=['POST','GET'])
+def update2():
+    insert_table()
+    return render_template('update2.html', list_of_date=list_of_date)
 
 @app.route('/cleandata', methods=['POST','GET'])
 def cleandata():
