@@ -1,4 +1,4 @@
-- task: DockerCompose@0
+- task: DockerCompose@
   inputs:
     containerregistrytype: 'Azure Container Registry'
     azureSubscription: 'main-subscribtion-Pay-As-You-Go(0255910c-f676-4e0d-912d-0c0abe4ba3e3)'
