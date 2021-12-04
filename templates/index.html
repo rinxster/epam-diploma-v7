@@ -1,62 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Weather Forecast App</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <meta charset="utf-8" />
+    <title>Moscow weather forecast application</title>
 </head>
-<body>
-    <div class="row no-gutters">
+<h3>Actions availables<h3/>
+    <form method="post" action="/showalldata">
+        <input type="submit" value="show all weather data" name="showalldata"/>
+    </form>
 
-        <div class="col-md-6 no-gutters">
+    <form method="post" action="/cleandata">
+        <input type="submit" value="clean data in database" name="cleandata"/>
+    </form>
 
-            <div class="leftside">
+    <form method="post" action="/updatedb">
+        <input type="submit" value="update db" name="updatedb"/>
+    </form>
 
-              <form class="form-inline" method="post" action="{{ url_for('results') }}">
-                <div>
-                    
-                  <h style="font-size: x-large;">Weather Forecast Application</h>
-                  <p>Just pick up a date in the below form,<br> and you will see the forecast for this day.<br></p>
-                  <span class="input-group-addon">Please select a date:</span>
-                  <div class="select">
+    <form method="post" action="/showbydate">
+        <div>
+            
+          <p>Pick date where you want to know weather forecast.</p>
+          <span class="input-group-addon">Please select a date:</span>
+          <div class="select">
 
-                    <select name="date_select" class="select">
-                      {% for date in list_of_date %}
-                        <option class="select"  value="{{ date }}">{{date}}</option>
-                      {% endfor %}<br/>
-                    </select>
-                    <div class="select_arrow">
-                    </div>
-                  </div>
-                  <div>
-                    <button class="myButton" type="submit">Forecast</button>
-                  </div>
-
-                </div>
-                  
-              </form>
-                <div class="update" style="float: left; width: 100px">
-                    <form class="form-inline" action="{{ url_for('stress') }}">
-                        <button class="myButton" type="submit">Stress</button>
-                        <!-- <input type="submit" name="update" value="Update"/> -->
-                    </form>
-                </div>
+            <select name="date_select" class="select">
+              {% for date in list_of_date %}
+               <option class="select"  value="{{ date }}">{{date}}</option> 
+              {% endfor %}<br/>
+            </select>
+            <div class="select_arrow">
             </div>
+          </div>
+          <div>
+            <button class="myButton" type="submit">Forecast</button>
+          </div>
 
         </div>
+          
+      </form>
+      
+      <form action="/showbydate">
+        <label for="enterdate">Enter date</label>
+        <input type="text" name="enterdate" value="enterdate" required>
+        <input type="submit" value="Submit">
+    </form>
 
-    </div>
-
-  </div>
-    <footer>
-      <p>&copy; 2021 EPAM Systems<br>
-      <a style="color:white;" href="mailto:sark@bk.ru">sark@bk.ru</a></p>
-    </footer>
 </body>
 </html>
+
