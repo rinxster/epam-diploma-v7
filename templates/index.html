@@ -4,41 +4,70 @@
     <meta charset="utf-8" />
     <title>Moscow weather forecast application</title>
 </head>
-<h3>Actions availables<h3/>
-    <form method="post" action="/showalldata">
-        <input type="submit" value="show all weather data" name="showalldata"/>
-    </form>
 
-    <form method="post" action="/cleandata">
-        <input type="submit" value="clean data in database" name="cleandata"/>
-    </form>
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Actions availables</th>
+            <br>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center; vertical-align: middle;">
+              <p>Please pick date you need
+                <br> weather forecast.</p>
+                  
+              <form method="post" action="/showbydate">
+                <div>
+                    
+                  <span class="input-group-addon">Please select a date:</span>
+                  <div class="select">
 
-    <form method="post" action="/updatedb">
-        <input type="submit" value="update db" name="updatedb"/>
-    </form>
+                    <select name="date_select" class="select">
+                      {% for date in list_of_date %}
+                      <option class="select"  value="{{ date }}">{{date}}</option> 
+                      {% endfor %}<br/>
+                    </select>
+                    <div class="select_arrow">
+                    </div>
+                  </div>
+                  <div>
+                    <button class="myButton" type="submit">Forecast</button>
+                  </div>
 
-    <form method="post" action="/showbydate">
-        <div>
+                </div>
+                  
+              </form>
+
+
+            </td>
             
-          <p>Pick date where you want to know weather forecast.</p>
-          <span class="input-group-addon">Please select a date:</span>
-          <div class="select">
+            <td style="text-align: center; vertical-align: middle;">Additional actions availables
+              <br> 
+              <form method="post" action="/showalldata">
+                <input type="submit" value="show all weather data" name="showalldata"/>
+            </form>
+            <br>
+            <form method="post" action="/cleandata">
+                <input type="submit" value="clean data in database" name="cleandata"/>
+            </form>
+            <br>
+            <form method="post" action="/updatedb">
+                <input type="submit" value="update db" name="updatedb"/>
+            </form>
+            <br>
+        
 
-            <select name="date_select" class="select">
-              {% for date in list_of_date %}
-               <option class="select"  value="{{ date }}">{{date}}</option> 
-              {% endfor %}<br/>
-            </select>
-            <div class="select_arrow">
-            </div>
-          </div>
-          <div>
-            <button class="myButton" type="submit">Forecast</button>
-          </div>
+            </td>
 
-        </div>
-          
-      </form>
+
+        </tr>
+    </tbody>
+</table>
+
+
+
       
       <form action="/showbydate">
         <label for="enterdate">Enter date</label>
