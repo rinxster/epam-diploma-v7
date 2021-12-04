@@ -5,5 +5,3 @@
     azureContainerRegistry: '{"loginServer":"epmci.azurecr.io", "id" : "/subscriptions/0255910c-f676-4e0d-912d-0c0abe4ba3e3/resourceGroups/epam-diploma-v7/providers/Microsoft.ContainerRegistry/registries/epmci"}'
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run a Docker Compose command'
-    parameters:
-  solution: '**/*.sln'
