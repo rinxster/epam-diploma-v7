@@ -128,7 +128,7 @@ def showalldata():
 
 @app.route('/showbydate', methods=['POST','GET'])
 def showbydate():
-    select = request.form.get('date_select')
+    select = request.form.get('enterdate')
     conn = connect(db_params)
     print(select)
     sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
