@@ -1,0 +1,51 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: ns-azure-flask-dev
+  labels:
+    name: ns-azure-flask-dev
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-flask-app-dev
+  namespace: ns-azure-flask-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-flask-app-dev
+  template:
+    metadata:
+      labels:
+        app: azure-flask-app-dev
+    spec:
+      
+      containers:
+      - name: azure-flask-app-dev
+        image: rsepamacr.azurecr.io/epam-diploma-v7_web
+        ports:
+        - containerPort: 80
+        resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m" 
+                      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-flask-app-dev
+  namespace: ns-azure-flask-dev
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: azure-flask-app-dev
+
+#scaling needed?

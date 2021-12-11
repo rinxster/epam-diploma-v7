@@ -1,29 +1,29 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: azure-flask-ns
+  name: ns-azure-flask-prod
   labels:
-    name: azure-flask-ns
+    name: ns-azure-flask-prod
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-flask-app
-  namespace: azure-flask-ns
+  name: azure-flask-app-prod
+  namespace: ns-azure-flask-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: azure-flask-app
+      app: azure-flask-app-prod
   template:
     metadata:
       labels:
-        app: azure-flask-app
+        app: azure-flask-app-prod
     spec:
       
       containers:
-      - name: azure-flask-app
+      - name: azure-flask-app-prod
         image: rsepamacr.azurecr.io/epam-diploma-v7_web
         ports:
         - containerPort: 80
@@ -39,13 +39,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: azure-flask-app
-  namespace: azure-flask-ns
+  name: azure-flask-app-prod
+  namespace: ns-azure-flask-prod
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: azure-flask-app
+    app: azure-flask-app-prod
 
 #scaling needed?
