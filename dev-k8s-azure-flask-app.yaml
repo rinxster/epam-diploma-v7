@@ -24,7 +24,7 @@ spec:
       
       containers:
       - name: azure-flask-app-dev
-        image: rsepamacr.azurecr.io/epam-diploma-v7_web
+        image: rsepamacr.azurecr.io/rinxster/epam-diploma-v7
         ports:
         - containerPort: 80
         resources:
