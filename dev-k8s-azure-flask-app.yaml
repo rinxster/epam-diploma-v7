@@ -1,9 +1,9 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: ns-azure-flask-dev
-  labels:
-    name: ns-azure-flask-dev
+#kind: Namespace
+#apiVersion: v1
+#metadata:
+#  name: ns-azure-flask-dev
+#  labels:
+#    name: ns-azure-flask-dev
 
 ---
 apiVersion: apps/v1
