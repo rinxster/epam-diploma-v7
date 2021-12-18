@@ -1,4 +1,7 @@
-FROM python:3.7
+#FROM python:3.7
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install stress-ng
+
 WORKDIR /app
 COPY . /app
 RUN pip3 install -r requirements.txt
