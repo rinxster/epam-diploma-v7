@@ -67,4 +67,17 @@ spec:
   selector:
     app: azure-flask-app
 
-#scaling needed?
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: webapp-hpa
+  namespace: azure-flask-ns
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: azure-flask-app
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
