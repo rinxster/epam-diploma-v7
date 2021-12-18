@@ -21,7 +21,9 @@ spec:
       labels:
         app: azure-flask-app-prod
     spec:
-      
+      envFrom:
+        - secretRef:
+            name: postgres-secret
       containers:
       - name: azure-flask-app-prod
         image: rsepamacr.azurecr.io/epam-diploma-v7_web
