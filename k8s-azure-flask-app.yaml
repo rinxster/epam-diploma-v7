@@ -10,8 +10,7 @@ kind: Deployment
 metadata:
   name: azure-flask-app
   namespace: azure-flask-ns
-  annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7
+  
 spec:
   replicas: 2
   selector:
@@ -62,6 +61,8 @@ kind: Service
 metadata:
   name: azure-flask-app
   namespace: azure-flask-ns
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7
 spec:
   type: LoadBalancer
   ports:
