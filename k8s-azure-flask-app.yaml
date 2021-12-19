@@ -16,8 +16,8 @@ spec:
   selector:
     matchLabels:
       app: azure-flask-app
-  strategy:
-    type: RollingUpdate    
+  #strategy:
+    #type: RollingUpdate    
   template:
     metadata:
       labels:
