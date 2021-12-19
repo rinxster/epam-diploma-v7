@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: azure-flask-app
-        image: rsepamacr.azurecr.io/rinxster
+        image: rsepamacr.azurecr.io/rinxster:#{Build.BuildId}#
         ports:
         - containerPort: 80
         resources:
