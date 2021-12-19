@@ -1,5 +1,5 @@
 #FROM ubuntu:20.04
-FROM python:3.7
+FROM python:latest
 WORKDIR /app
 COPY . /app
 #RUN apt-get update && apt-get install -y software-properties-common && apt-get install -y stress-ng && apt-get install -y python3
