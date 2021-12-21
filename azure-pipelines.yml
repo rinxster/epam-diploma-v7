@@ -38,7 +38,15 @@ stages:
         tags: |
           $(tag)
 
-     - task: replacetokens@4
+- job: Job_2
+  displayName: upload artefacts
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+
+  - task: replacetokens@4
     displayName: Replace tokens in **/*.yaml
     inputs:
       targetFiles: '**/*.yaml'
@@ -53,3 +61,4 @@ stages:
       TargetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
+...
