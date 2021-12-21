@@ -10,7 +10,7 @@ resources:
     ref: main
 jobs:
 - job: Job_3
-  displayName: SonarCloudcheck
+  displayName: SonarCloudcheck2
   pool:
     vmImage: ubuntu-20.04
   steps:
