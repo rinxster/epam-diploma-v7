@@ -1,0 +1,55 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'ffd62952-c932-40b1-b48d-d3ac9387f8db'
+  imageRepository: 'rinxster'
+  containerRegistry: 'rsepamacr.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+     - task: replacetokens@4
+    displayName: Replace tokens in **/*.yaml
+    inputs:
+      targetFiles: '**/*.yaml'
+      tokenPattern: rm
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      Contents: >-
+        k8s-secret.yaml
+
+        k8s-azure-flask-app.yaml
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
