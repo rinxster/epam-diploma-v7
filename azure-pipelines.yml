@@ -1,43 +1,56 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
+# Variable Group 'akv' was defined in the Variables tab
 trigger:
-- main
-
+  branches:
+    include:
+    - main
 resources:
-- repo: self
+  repositories:
+  - repository: self
+    type: git
+    ref: main
+jobs:
+- job: Job_3
+  displayName: SonarCloudcheck
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: SonarCloudPrepare@1
+    displayName: Prepare analysis on SonarCloud
+    enabled: False
+    inputs:
+      SonarCloud: c0b658a3-da5a-43eb-a549-86be87232e6f
+      organization: epam-diploma-v7
+      scannerMode: CLI
+      configMode: manual
+      cliProjectKey: sark0205_epam-diploma-v7
+      projectKey: dev-epam-diploma-v7
+      cliProjectName: epam-diploma-v7
+      projectName: dev-epam-diploma-v7
+  - task: SonarCloudAnalyze@1
+    displayName: Run Code Analysis
+    enabled: False
+  - task: SonarCloudPublish@1
+    displayName: Publish Quality Gate Result
+    enabled: False
+- job: Job_1
+  displayName: build and upload docker
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: Docker@2
+    displayName: buildAndPush
+    inputs:
+      containerRegistry: fd67483c-8e04-4020-aa06-623b6a6f9460
+      repository: rinxster
+      tags: >-
+        $(Build.BuildId)
 
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'ffd62952-c932-40b1-b48d-d3ac9387f8db'
-  imageRepository: 'rinxster'
-  containerRegistry: 'rsepamacr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-  - job: Job_2
+        latest
+- job: Job_2
   displayName: upload artefacts
   pool:
     vmImage: ubuntu-20.04
