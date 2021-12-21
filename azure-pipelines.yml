@@ -38,7 +38,7 @@ stages:
         tags: |
           $(tag)
 
-- job: Job_2
+  - job: Job_2
   displayName: upload artefacts
   pool:
     vmImage: ubuntu-20.04
