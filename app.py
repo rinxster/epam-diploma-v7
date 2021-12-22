@@ -114,14 +114,6 @@ def showalldata():
     conn.close()
     return render_template('showalldata.html', date_weather=date_weather)
 
-@app.route('/showalldata', methods=['POST','GET'])
-def showalldata():
-    conn = connect(db_params)
-    sql_query = """ SELECT * FROM forecast ORDER BY created """
-    date_weather = postgresql_query(conn, sql_query)
-    conn.close()
-    return render_template('showalldata.html', date_weather=date_weather)
-
 @app.route('/showbydate', methods=['POST','GET'])
 def showbydate():
     select = request.form.get('date_select')
