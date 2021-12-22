@@ -1,15 +1,15 @@
 #kind: Namespace
 #apiVersion: v1
 #metadata:
-#  name: #{kubernetes-namespace}#
+#  name: $(kubernetes-namespace)
 #  labels:
-#    name: #{kubernetes-namespace}#
+#    name: $(kubernetes-namespace)
 #---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-flask-app
-  namespace: #{kubernetes-namespace}#
+  namespace: $(kubernetes-namespace)
   
 spec:
   replicas: 2
@@ -65,7 +65,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-flask-app
-  namespace: #{kubernetes-namespace}#
+  namespace: $(kubernetes-namespace)
   annotations:
     service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7
 spec:
@@ -80,7 +80,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: webapp-hpa
-  namespace: #{kubernetes-namespace}#
+  namespace: $(kubernetes-namespace)
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
