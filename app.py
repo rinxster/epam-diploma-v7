@@ -105,6 +105,9 @@ app = Flask(__name__)
 def index2():
     return render_template('index.html', list_of_date=list_of_date)
 
+@app.route('/')
+def index2():
+    return render_template('index.html', list_of_date=list_of_date)
 
 @app.route('/showalldata', methods=['POST','GET'])
 def showalldata():
