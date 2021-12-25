@@ -67,7 +67,7 @@ metadata:
   name: azure-flask-app
   namespace: azure-flask-ns
   annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7
+    service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7-__NAMESPACE__
 spec:
   type: LoadBalancer
   ports:
