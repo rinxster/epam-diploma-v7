@@ -1,15 +1,15 @@
-#kind: Namespace
-#apiVersion: v1
-#metadata:
-#  name: azure-flask-ns
-#  labels:
-#    name: azure-flask-ns
-#---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: __NAMESPACE__
+  labels:
+    name: __NAMESPACE__
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-flask-app
-  namespace: azure-flask-ns
+  namespace: __NAMESPACE__
   
 spec:
   replicas: 2
@@ -65,9 +65,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-flask-app
-  namespace: azure-flask-ns
+  namespace: __NAMESPACE__
   annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: epm-diploma-v7-__NAMESPACE__
+    service.beta.kubernetes.io/azure-dns-label-name: __NAMESPACE__-epm-diploma-v7
 spec:
   type: LoadBalancer
   ports:
@@ -80,7 +80,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: webapp-hpa
-  namespace: azure-flask-ns
+  namespace: __NAMESPACE__
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
