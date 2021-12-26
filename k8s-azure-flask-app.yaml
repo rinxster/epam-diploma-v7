@@ -31,6 +31,12 @@ spec:
         image: rsepamacr.azurecr.io/flaskapp-dev:__Build.BuildId__
         ports:
         - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 3
+          timeoutSeconds: 1
         resources:
             requests:
               memory: "64Mi"
