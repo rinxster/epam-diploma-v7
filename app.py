@@ -7,8 +7,6 @@ import calendar
 from datetime import datetime
 from joblib import Parallel, delayed
 from flask import Flask, render_template, request, jsonify
-from applicationinsights.flask.ext import AppInsights
-
 
 city_id = requests.get("https://www.metaweather.com/api/location/search/?query={}".format('Moscow')).json()[0]['woeid']
 
@@ -101,8 +99,7 @@ list_of_date = [item[0] for item in postgresql_query(conn=connect(db_params),
                                                                  " FROM forecast ORDER BY applicable_date;""")]
 
 app = Flask(__name__)
-app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = '6a73e254-8d2d-40fe-a7f1-390d2e888110'
-appinsights = AppInsights(app)
+
 
 @app.route('/')
 def index2():

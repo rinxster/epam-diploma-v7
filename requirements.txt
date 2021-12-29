@@ -4,4 +4,3 @@ requests
 pytest
 joblib
 python-dotenv
-applicationinsights
