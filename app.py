@@ -100,7 +100,8 @@ list_of_date = [item[0] for item in postgresql_query(conn=connect(db_params),
                                                                  " FROM forecast ORDER BY applicable_date;""")]
 
 app = Flask(__name__)
-app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = '6a73e254-8d2d-40fe-a7f1-390d2e888110'
+app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = os.getenv('AZURE_APP_INS_KEY')
+#app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = '6a73e254-8d2d-40fe-a7f1-390d2e888110'
 appinsights = AppInsights(app)
 
 @app.route('/')
@@ -119,7 +120,6 @@ def showalldata():
 def showbydate():
     select = request.form.get('date_select')
     conn = connect(db_params)
-    print(select)
     sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
     date_weather = postgresql_query(conn, sql_query)
     conn.close()

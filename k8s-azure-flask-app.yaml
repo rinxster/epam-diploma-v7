@@ -64,7 +64,13 @@ spec:
           valueFrom:
             secretKeyRef:
               name: postgres-secret
-              key: DB_NAME              
+              key: DB_NAME
+        - name: AZURE_APP_INS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: AZURE_APP_INS_KEY
+                            
 
 ---
 apiVersion: v1
