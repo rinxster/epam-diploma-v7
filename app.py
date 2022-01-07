@@ -120,7 +120,6 @@ def showalldata():
 def showbydate():
     select = request.form.get('date_select')
     conn = connect(db_params)
-    print(select)
     sql_query = """ SELECT * FROM forecast WHERE applicable_date = '{}' ORDER BY created; """.format(select)
     date_weather = postgresql_query(conn, sql_query)
     conn.close()
