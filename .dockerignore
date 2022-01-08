@@ -1,0 +1,12 @@
+# .dockerignore file
+*/temp*
+*.md
+*.ppt
+*.pptx
+*.yaml
+*.pyc
+.env
+__pycache__
+_archive
+.gitattributes
+**/.git
