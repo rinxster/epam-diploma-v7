@@ -11,4 +11,3 @@ __pycache__
 _archive
 .gitattributes
 **/.git
-*.txt
