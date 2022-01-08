@@ -99,14 +99,15 @@ list_of_date = [item[0] for item in postgresql_query(conn=connect(db_params),
                                                          select_query="""SELECT DISTINCT(applicable_date)"
                                                                  " FROM forecast ORDER BY applicable_date;""")]
 
+azure_appinsights_instrum_key=os.getenv('AZURE_APP_INS_KEY')
+
 app = Flask(__name__)
-app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = os.getenv('AZURE_APP_INS_KEY')
-#app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = '6a73e254-8d2d-40fe-a7f1-390d2e888110'
+app.config['APPINSIGHTS_INSTRUMENTATIONKEY'] = azure_appinsights_instrum_key
 appinsights = AppInsights(app)
 
 @app.route('/')
 def index2():
-    return render_template('index.html', list_of_date=list_of_date)
+    return render_template('index.html', list_of_date=list_of_date, azure_appinsights_instrum_key=azure_appinsights_instrum_key)
 
 @app.route('/showalldata', methods=['POST','GET'])
 def showalldata():
