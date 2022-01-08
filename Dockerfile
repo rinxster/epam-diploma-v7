@@ -1,5 +1,6 @@
 #FROM ubuntu:20.04
 FROM python:3.7
+ENV PYTHONDONTWRITEBYTECODE=1
 WORKDIR /app
 COPY . /app
 RUN pip3 install -r requirements.txt
