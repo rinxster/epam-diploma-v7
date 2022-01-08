@@ -6,7 +6,6 @@
 *.yaml
 *.pyc
 .env
-Dockerfile
 __pycache__
 _archive
 .gitattributes
