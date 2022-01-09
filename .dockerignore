@@ -10,4 +10,3 @@ __pycache__
 _archive
 .gitattributes
 **/.git
-requirements.txt
