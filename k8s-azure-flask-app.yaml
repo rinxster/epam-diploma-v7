@@ -1,16 +1,8 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: __NAMESPACE__
-  labels:
-    name: __NAMESPACE__
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-flask-app
   namespace: __NAMESPACE__
-  
 spec:
   replicas: 2
   selector:
@@ -70,8 +62,7 @@ spec:
             secretKeyRef:
               name: postgres-secret
               key: AZURE_APP_INS_KEY
-                            
-
+                          
 ---
 apiVersion: v1
 kind: Service
