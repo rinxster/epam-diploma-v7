@@ -86,13 +86,6 @@ def postgresql_query(conn, select_query):
     cursor.close()
     return res
 
-def worker(i):
-    print('worker ', i)
-    x = 0
-    while x < 1000:
-        print(x)
-        x += 1
-
 insert_table()
 
 list_of_date = [item[0] for item in postgresql_query(conn=connect(db_params),
@@ -135,19 +128,6 @@ def updatedb():
 def cleandata():
     clean_table()
     return render_template('cleandata.html', list_of_date=list_of_date)
-
-
-@app.route('/stress')
-def stress():
-    start_time = time.time()
-    Parallel(n_jobs=-1, prefer="processes", verbose=0)(
-            delayed(worker)(num)
-            for num in range(12000)
-    )
-    end_time = time.time() - start_time
-    resp = jsonify(success=True, time=str(end_time))
-    resp.status_code = 200
-    return resp
 
 if __name__ == '__main__':
      app.run()
