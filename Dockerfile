@@ -1,6 +1,6 @@
 FROM python:3.7
 ENV PYTHONDONTWRITEBYTECODE=1
-RUN pip3 install --upgrade pip
+
 #RUN pip3 install -r requirements.txt
 WORKDIR /app
 ENV PATH="/app/.local/bin:${PATH}"
@@ -12,7 +12,7 @@ RUN chown -R myuser:myuser /app
 RUN chmod 755 /app
 USER myuser
 COPY --chown=myuser:myuser . /app
-
+RUN pip3 install --user --upgrade pip
 RUN pip3 install --user -r requirements.txt
 EXPOSE 80
 CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=80"]
