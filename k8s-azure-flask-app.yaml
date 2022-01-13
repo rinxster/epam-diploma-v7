@@ -4,6 +4,7 @@ metadata:
   name: azure-flask-app
   namespace: __NAMESPACE__
 spec:
+  revisionHistoryLimit: 0
   replicas: 2
   selector:
     matchLabels:
