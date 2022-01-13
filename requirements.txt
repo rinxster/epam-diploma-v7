@@ -1,7 +1,6 @@
 Flask
 psycopg2
 requests
-pytest
 joblib
 python-dotenv
 applicationinsights
