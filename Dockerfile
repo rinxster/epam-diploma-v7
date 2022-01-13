@@ -3,8 +3,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 RUN pip3 install --upgrade pip
 #RUN pip3 install -r requirements.txt
 WORKDIR /app
-export PATH=/app/.local/bin:$PATH
-
+ENV PATH="/app/.local/bin:${PATH}"
 RUN groupadd --gid 9999 myuser \
     && useradd --home-dir /app \
         --uid 9999 \
